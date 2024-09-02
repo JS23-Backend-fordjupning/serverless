@@ -1,0 +1,24 @@
+service: serverless-example
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  profile: zocom-christoffer
+  region: eu-north-1
+  iam:
+    role: arn:aws:iam::497180550327:role/lecture-role
+
+plugins:
+  - serverless-webpack
+
+package:
+  individually: true
+
+functions:
+  getInsult:
+    handler: functions/getInsult/index.handler
+    events:
+      - httpApi:
+          path: '/api/insults'
+          method: GET
